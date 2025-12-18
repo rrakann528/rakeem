@@ -109,3 +109,24 @@ const chatToggle = document.getElementById('chat-toggle');
 chatToggle.addEventListener('click', () => {
   chatBox.style.display = (chatBox.style.display === 'none') ? 'block' : 'none';
 });
+// وظيفة تحميل الفيديو بناءً على الرابط المدخل
+const loadVideoButton = document.getElementById('load-video');
+const videoUrlInput = document.getElementById('video-url-input');
+const videoPlayer = document.getElementById('video-player');
+
+// وظيفة لتحميل الفيديو بناءً على الرابط
+loadVideoButton.addEventListener('click', () => {
+  const videoUrl = videoUrlInput.value;
+  
+  // تحقق من نوع الرابط (YouTube أو MP4 أو M3U8)
+  if (videoUrl.includes("youtube.com")) {
+    // إذا كان الرابط من YouTube
+    const videoId = videoUrl.split("v=")[1];
+    videoPlayer.src = `https://www.youtube.com/embed/${videoId}`;
+  } else if (videoUrl.endsWith(".mp4") || videoUrl.endsWith(".m3u8")) {
+    // إذا كان الرابط MP4 أو M3U8
+    videoPlayer.src = videoUrl;
+  } else {
+    alert("يرجى إدخال رابط صالح من YouTube أو MP4 أو M3U8.");
+  }
+});
