@@ -29,3 +29,37 @@
  pts.js"></script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Video Sync and Chat</title>
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.1.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.1.2/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.1.2/firebase-analytics.js"></script>
+</head>
+<body>
+  <h1>Welcome to Video Sync and Chat</h1>
+
+
+
+  <!-- مكان عرض الفيديو -->
+  <video id="video-player" controls>
+    <source src="your-video-url.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <!-- مكان عرض الرسائل -->
+  <div id="messages"></div>
+
+  <!-- مربع إرسال الرسالة -->
+  <input type="text" id="message-input" placeholder="Type a message">
+  <button id="send-message">Send</button>
+
+  <!-- إضافة الكود JavaScript هنا -->
+  <script src="scripts.js"></script>
+</body>
+</html
+>
