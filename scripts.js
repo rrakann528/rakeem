@@ -170,3 +170,33 @@ joinRoomButton.addEventListener('click', () => {
     alert("يرجى إدخال رقم غرفة.");
   }
 });
+const loadVideoButton = document.getElementById('load-video');
+const videoUrlInput = document.getElementById('video-url-input');
+const videoPlayer = document.getElementById('video-player');
+const videoContainer = document.getElementById('video-container'); // حاوية الفيديو
+
+loadVideoButton.addEventListener('click', () => {
+  const videoUrl = videoUrlInput.value;
+  
+  // تحقق من نوع الرابط (YouTube أو MP4 أو M3U8)
+  if (videoUrl.includes("youtube.com")) {
+    // إذا كان الرابط من YouTube
+    const videoId = videoUrl.split("v=")[1];
+    const iframe = document.createElement('iframe');
+    iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`; // إضافة ?autoplay=1 لتشغيل الفيديو مباشرة
+    iframe.frameBorder = '0';
+    iframe.allow = 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture';
+    iframe.allowFullscreen = true;
+    
+    // حذف فيديو MP4 أو M3U8 القديم وإضافة iframe
+    videoContainer.innerHTML = ''; // مسح الفيديو السابق
+    videoContainer.appendChild(iframe); // إضافة iframe
+  } else if (videoUrl.endsWith(".mp4") || videoUrl.endsWith(".m3u8")) {
+    // إذا كان الرابط MP4 أو M3U8
+    videoPlayer.src = videoUrl;
+    videoContainer.innerHTML = ''; // مسح iframe السابق
+    videoContainer.appendChild(videoPlayer); // إعادة الفيديو إلى الحاوية
+  } else {
+    alert("يرجى إدخال رابط صالح من YouTube أو MP4 أو M3U8.");
+  }
+});
