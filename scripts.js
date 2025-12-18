@@ -130,3 +130,43 @@ loadVideoButton.addEventListener('click', () => {
     alert("يرجى إدخال رابط صالح من YouTube أو MP4 أو M3U8.");
   }
 });
+// وظائف إنشاء والانضمام إلى الغرفة
+const createRoomButton = document.getElementById('create-room');
+const joinRoomButton = document.getElementById('join-room');
+const roomIdInput = document.getElementById('room-id-input');
+
+// إنشاء غرفة جديدة
+createRoomButton.addEventListener('click', () => {
+  const roomId = roomIdInput.value;
+  if (roomId) {
+    // إنشاء غرفة جديدة في Firebase
+    set(ref(database, 'rooms/' + roomId), {
+      videoUrl: videoPlayer.src,
+      messages: []
+    }).then(() => {
+      alert("تم إنشاء الغرفة بنجاح!");
+    });
+  } else {
+    alert("يرجى إدخال رقم غرفة.");
+  }
+});
+
+// الانضمام إلى غرفة موجودة
+joinRoomButton.addEventListener('click', () => {
+  const roomId = roomIdInput.value;
+  if (roomId) {
+    // تحميل معلومات الغرفة من Firebase
+    const roomRef = ref(database, 'rooms/' + roomId);
+    onValue(roomRef, (snapshot) => {
+      const roomData = snapshot.val();
+      if (roomData) {
+        videoPlayer.src = roomData.videoUrl; // تحميل الفيديو من الغرفة
+        alert("تم الانضمام إلى الغرفة بنجاح!");
+      } else {
+        alert("الغرفة غير موجودة.");
+      }
+    });
+  } else {
+    alert("يرجى إدخال رقم غرفة.");
+  }
+});
